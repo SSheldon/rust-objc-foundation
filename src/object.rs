@@ -50,6 +50,14 @@ pub trait INSObject : Any + Sized + Message {
             Id::from_retained_ptr(obj)
         }
     }
+    
+    fn alloc() -> Id<Self> {
+        let cls = Self::class();
+        unsafe {
+            let obj: *mut Self = msg_send![cls, alloc];
+            Id::from_retained_ptr(obj)
+        }
+    }
 }
 
 object_struct!(NSObject);
