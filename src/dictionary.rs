@@ -3,7 +3,6 @@ use std::marker::PhantomData;
 use std::ops::Index;
 use std::ptr;
 
-use objc::runtime::Class;
 use objc_id::{Id, Owned, Ownership, ShareId};
 
 use {
@@ -113,17 +112,10 @@ pub trait INSDictionary : INSObject {
     }
 }
 
-pub struct NSDictionary<K, V> {
+#[derive(INSObject)]
+pub struct NSDictionary<K, V> where K: INSObject, V: INSObject {
     key: PhantomData<ShareId<K>>,
     obj: PhantomData<Id<V>>,
-}
-
-object_impl!(NSDictionary<K, V>);
-
-impl<K, V> INSObject for NSDictionary<K, V> where K: INSObject, V: INSObject {
-    fn class() -> &'static Class {
-        Class::get("NSDictionary").unwrap()
-    }
 }
 
 impl<K, V> INSDictionary for NSDictionary<K, V>

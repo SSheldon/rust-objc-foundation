@@ -15,6 +15,4 @@ exclude = [".gitignore"]
 block = "0.1"
 objc = "0.2"
 objc_id = "0.1"
-
-[dev-dependencies]
 objc-foundation-derive = "0.0"

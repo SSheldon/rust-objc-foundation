@@ -6,7 +6,6 @@ use std::os::raw::{c_char, c_void};
 use std::str;
 
 use objc::{Encode, Encoding};
-use objc::runtime::Class;
 use objc_id::Id;
 
 use {INSCopying, INSObject};
@@ -48,16 +47,9 @@ pub trait INSValue : INSObject {
     }
 }
 
-pub struct NSValue<T> {
+#[derive(INSObject)]
+pub struct NSValue<T> where T: Any {
     value: PhantomData<T>,
-}
-
-object_impl!(NSValue<T>);
-
-impl<T> INSObject for NSValue<T> where T: Any {
-    fn class() -> &'static Class {
-        Class::get("NSValue").unwrap()
-    }
 }
 
 impl<T> INSValue for NSValue<T> where T: Any + Copy + Encode {

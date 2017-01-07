@@ -3,7 +3,7 @@ use std::marker::PhantomData;
 use std::ops::{Index, Range};
 use std::os::raw::c_void;
 
-use objc::runtime::{Class, Object};
+use objc::runtime::Object;
 use objc_id::{Id, Owned, Ownership, Shared, ShareId};
 
 use {INSCopying, INSFastEnumeration, INSMutableCopying, INSObject, NSEnumerator};
@@ -159,16 +159,9 @@ pub trait INSArray : INSObject {
     }
 }
 
-pub struct NSArray<T, O = Owned> {
+#[derive(INSObject)]
+pub struct NSArray<T, O = Owned> where T: INSObject, O: Ownership {
     item: PhantomData<Id<T, O>>,
-}
-
-object_impl!(NSArray<T, O>);
-
-impl<T, O> INSObject for NSArray<T, O> where T: INSObject, O: Ownership {
-    fn class() -> &'static Class {
-        Class::get("NSArray").unwrap()
-    }
 }
 
 impl<T, O> INSArray for NSArray<T, O> where T: INSObject, O: Ownership {
@@ -274,16 +267,9 @@ pub trait INSMutableArray : INSArray {
     }
 }
 
-pub struct NSMutableArray<T, O = Owned> {
+#[derive(INSObject)]
+pub struct NSMutableArray<T, O = Owned> where T: INSObject, O: Ownership {
     item: PhantomData<Id<T, O>>,
-}
-
-object_impl!(NSMutableArray<T, O>);
-
-impl<T, O> INSObject for NSMutableArray<T, O> where T: INSObject, O: Ownership {
-    fn class() -> &'static Class {
-        Class::get("NSMutableArray").unwrap()
-    }
 }
 
 impl<T, O> INSArray for NSMutableArray<T, O> where T: INSObject, O: Ownership {

@@ -5,6 +5,8 @@
 extern crate objc;
 extern crate objc_id;
 extern crate block;
+#[macro_use]
+extern crate objc_foundation_derive;
 
 pub use self::array::{
     INSArray, INSMutableArray,
