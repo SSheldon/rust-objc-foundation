@@ -18,7 +18,7 @@ pub use self::object::{INSObject, NSObject};
 pub use self::string::{INSCopying, INSMutableCopying, INSString, NSString};
 pub use self::value::{INSValue, NSValue};
 
-#[link(name = "Foundation", kind = "framework")]
+#[cfg_attr(any(target_os = "macos", target_os = "ios"), link(name = "Foundation", kind = "framework"))]
 extern { }
 
 #[macro_use]
