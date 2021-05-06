@@ -8,6 +8,7 @@ keywords = ["objective-c", "osx", "ios", "cocoa", "uikit"]
 repository = "http://github.com/SSheldon/rust-objc-foundation"
 documentation = "http://ssheldon.github.io/rust-objc/objc_foundation/"
 license = "MIT"
+license-file = "LICENSE-MIT" 
 
 exclude = [".gitignore"]
 
