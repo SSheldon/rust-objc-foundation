@@ -25,7 +25,7 @@ impl<'a, T> Iterator for NSEnumerator<'a, T> where T: INSObject {
 
     fn next(&mut self) -> Option<&'a T> {
         unsafe {
-            let obj: *mut T = msg_send![self.id, nextObject];
+            let obj: *mut T = msg_send![&*self.id, nextObject];
             if obj.is_null() { None } else { Some(&*obj) }
         }
     }
