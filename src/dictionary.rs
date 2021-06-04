@@ -107,7 +107,7 @@ pub trait INSDictionary : INSObject {
 
     fn into_values_array(dict: Id<Self>) -> Id<NSArray<Self::Value, Self::Own>> {
         unsafe {
-            let vals = msg_send![dict, allValues];
+            let vals = msg_send![&*dict, allValues];
             Id::from_ptr(vals)
         }
     }
